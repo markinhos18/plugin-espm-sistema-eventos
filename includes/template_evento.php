@@ -22,7 +22,7 @@ if( isset($_POST["checkeboxes"]) ){
 ?>
 
 
-<form action="" method="post" id="itemForm" >
+<form action="" method="post" id="form" >
   <div class="row ">
 
     <div class="col-xxl-3 col-lg-3 col-md-6 p-0 gap-3 mb-3">
@@ -35,8 +35,8 @@ if( isset($_POST["checkeboxes"]) ){
             <?php  for ($i=0; $i < count($eventoCampus) ; $i++) {  ?>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="<?php  echo $eventoCampus[$i]["campus"]; ?>" onClick="formularioCheck(this)" id="flexCheckDefault" >
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="<?php  echo $eventoCampus[$i]["descr"]; ?>"  id="inputCampus" >
+                <label class="form-check-label" type="checkbox" for="inputCampus">
                   <?php echo $eventoCampus[$i]["descr"]; ?>
                 </label>
               </div>
