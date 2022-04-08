@@ -4,9 +4,9 @@
 
 
 if( isset($_POST["checkeboxes"]) ){
-  echo "============[";
-  var_dump($_POST["checkeboxes"]);
-  echo "]============";
+  // echo "============[";
+  // var_dump($_POST["checkeboxes"]);
+  // echo "]============";
 
 
   $checkeboxes = $_POST["checkeboxes"];
@@ -49,9 +49,9 @@ if( isset($_POST["checkeboxes"]) ){
         
         
 
-        <div class="col-12 my-3">
+        <div class="col-12 my-2">
           <div class="title-white">
-            <span>Publico</span>
+            <span><b>Público</b></span>
             <select class="form-select" aria-label="Default select example">
               <option selected>...</option>
 
@@ -68,9 +68,9 @@ if( isset($_POST["checkeboxes"]) ){
         
        
 
-        <div class="col-12 my-3">
+        <div class="col-12 my-2">
           <div class="title-white">
-            <span>Modelo</span>
+            <span><b>Modelo</b></span>
               <select class="form-select" aria-label="Default select example">
 
                 <option selected>...</option>
@@ -85,9 +85,9 @@ if( isset($_POST["checkeboxes"]) ){
           </div>
         </div>
         
-        <div class="col-12 my-3">
+        <div class="col-12 my-2">
           <div class="title-white">
-            <span>Investimento</span>
+            <span><b>Investimento</b></span>
             <select class="form-select" aria-label="Default select example">
 
               <option selected>...</option>
@@ -101,10 +101,10 @@ if( isset($_POST["checkeboxes"]) ){
         </div>
        
       
-        <div class="col-12 my-3">
+        <div class="col-12 my-2">
           <div class="title-white mb-2">
             <i aria-hidden="true" class="far fa-calendar-alt me-2"></i>
-            <span>Data do evento</span>
+            <span><b>Data do evento</b></span>
           </div>
           <div class="row">
             
@@ -120,8 +120,7 @@ if( isset($_POST["checkeboxes"]) ){
           </div>
           <div class="row d-flex justify-content-center mt-3">
             <button type="button" class="jet-date-range__submit apply-filters__button btn-green">
-              <i class="fa fa-calendar-o"></i>    
-              <span class="jet-date-range__submit-text">Encontrar</span>
+              <i class="fa fa-calendar-o me-2"></i> <span class=" jet-date-range__submit-text">Encontrar</span>
             </button>
           </div>
         </div>
@@ -195,7 +194,7 @@ if( isset($_POST["checkeboxes"]) ){
       
           <?php  for ($i=0; $i < count($evento["data"]) ; $i++) {  ?>
 
-            <option value="<?php echo $eventoPublicos["data"][$i]["descricao"] ?>"><?php echo $eventoPublicos["data"][$i]["descricao"] ?></option>
+            <option value="<?php echo $eventoPublicos["data"][$i]["descricao"] ?>" ><?php echo $eventoPublicos["data"][$i]["descricao"] ?></option>
             
           <?php }?>
 
@@ -214,55 +213,29 @@ if( isset($_POST["checkeboxes"]) ){
 
             <div class="card-eventos col-xxl-4 col-lg-4 mb-3">
 
-              <img style="height: 150px"  class="card-img-top img-fluid" src="<?php echo $evento["data"][$i]["eventosIdiomas"][0]["bannerTopoArquivo"] ?>" alt="Card image cap">      
+              <img style="height: 100px"  class="card-img-top img-fluid" src="<?php echo $evento["data"][$i]["eventosIdiomas"][0]["bannerTopoArquivo"] ?>" alt="Card image cap">      
               
 
               <div class="card-body">
 
-                <div class="mb-3">
+              <div class="row">
 
-                  <?php if($eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"]) { ?>
+                <div class="col-10 mb-3">
+                  
+                  <!--i aria-hidden="true" class="far fa-calendar-alt"></i--> <span class="red"><?php echo $evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"] ?></span>
 
-                    <span class="btn-red me-3">
+                  
+                  
+                </div>
 
-                      <?php echo $eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"] ?>
-                      
-                    </span>
                 
-                  <?php } ?>
-
-            
-
-                  <?php if($eventoAtividades["data"][$i]["investimento"] === null) { ?>
-
-                    <span class="btn-grey">
-
-                      <?php echo "Gratuito"  ?>
-                      
-
-                  <?php } else { ?>
-
-                      <?php echo $eventoAtividades["data"][$i]["investimento"] ?>
-
-                    </span>
-
-                  <?php } ?>
-                
-          
-
-                  <a href="#" class="float-right">
+                <div class="col-2 mb-3">
+                  <a href="javascript:void(0)" onclick="share()" class="float-right">
                     <i aria-hidden="true" class="fas fa-share-alt"></i>
                   </a>
                 </div>
 
-                
-                <div class="mb-3">
-
-                
-                  
-                
-          
-                </div>
+              </div>
                 
                 
                   
@@ -270,22 +243,56 @@ if( isset($_POST["checkeboxes"]) ){
 
 
               
+                <?php if($eventoPublicos["data"][$i]["descricao"]) { ?>
                 
-                
-                <div class="my-2">
-  
-                    <span class="text-publico"><strong>Público:</strong> <?php echo $eventoPublicos["data"][$i]["descricao"] ?></span>
-                  
-                </div>
+                  <div class="my-2">
+    
+                      <span class="text-publico"><strong>Público:</strong> <?php echo $eventoPublicos["data"][$i]["descricao"] ?></span>
+                    
+                  </div>
+
+                <?php } ?>
                 
                
                   
                 <!-- <p class="text-p mb-3"><?php echo $evento["data"][$i]["eventosIdiomas"][0]["paginaEventoDescricao"] ?></p> -->
-                  
                 
                 <div class="mb-3">
+                  <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $evento["data"][$i]["inscricaoHoraInicial"] ?> até <?php echo $evento["data"][$i]["inscricaoHoraFinal"] ?>
+                </div>
+
+                <div class="mb-3">
+
+                  <?php if($eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"]) { ?>
+
+                    <span class="btn-red me-3">
+
+                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"] ?>
+                      
+                    </span>
+                
+                  <?php } ?> <br>
+
+            
+
+                  <?php if($eventoAtividades["data"][$i]["investimento"] === null) { ?>
+
+                    <span class="btn-grey">
+
+                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo "Gratuito"  ?>
+                      
+
+                  <?php } else { ?>
+
+                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $eventoAtividades["data"][$i]["investimento"] ?>
+
+                    </span>
+
+                  <?php } ?>
+                
+          
+
                   
-                  <i aria-hidden="true" class="far fa-calendar-alt"></i> <?php echo $evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"] ?>  <?php echo $evento["data"][$i]["inscricaoHoraInicial"] ?> até <?php echo $evento["data"][$i]["inscricaoHoraFinal"] ?><br>
                   
                 </div>
 

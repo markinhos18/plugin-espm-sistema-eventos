@@ -65,16 +65,16 @@ h3.title-white {
 }
 
 .btn-red {
-  background: #900033;
-  color: white;
-  padding: 5px;
+  /* background: #900033; */
+  color: black;
+  /* padding: 3px 4px; */
   border-radius: 5px;
 }
 
 .btn-grey {
-  background: #c7c7c7;
-  color: white;
-  padding: 5px;
+  /* background: #c7c7c7; */
+  color: black;
+  /* padding: 3px 4px; */
   border-radius: 5px;
 }
 
@@ -93,9 +93,14 @@ h3.title-white {
   line-height: 1.2em;
   letter-spacing: 0px;
   color: var(--e-global-color-6c4531a5)  !important;
+  color: var(--e-global-color-6c4531a5)  !important;
   background-color: var(--e-global-color-23e4e87)  !important;
   border-style: solid  !important;
   border-color: #15947C  !important;
   padding: 5% 23% 5% 23%  !important;
   margin: 7% 0% 0% 0%;
+}
+
+.red{
+  color:#c36;
 }
