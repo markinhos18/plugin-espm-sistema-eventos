@@ -192,11 +192,18 @@ if( isset($_POST["checkeboxes"]) ){
 
           <option selected>Ordenar por ...</option>
       
-          <?php  for ($i=0; $i < count($evento["data"]) ; $i++) {  ?>
+          <!-- <?php  for ($i=0; $i < count($evento["data"]) ; $i++) {  ?>
 
             <option value="<?php echo $eventoPublicos["data"][$i]["descricao"] ?>" ><?php echo $eventoPublicos["data"][$i]["descricao"] ?></option>
             
-          <?php }?>
+          <?php }?> -->
+
+
+          <option value="Título A - Z" >Titulo A - Z</option>
+          <option value="Título Z - A" >Titulo Z - A</option>
+          <option value="Data mais próxima" >Data mais próxima</option>
+          <option value="Data mais distante" >Data mais distante</option>
+            
 
         </select>
       </div>
@@ -205,14 +212,25 @@ if( isset($_POST["checkeboxes"]) ){
       <div class="col-12">
 
         <div class="row">
-          
-        
 
-          <?php  for ($i=0; $i < count($evento["data"], $eventoAtividades["eventosId"]) ; $i++) {  ?>
+
+          <?php  for ($i=0; $i < count($evento["data"], $eventoAtividades["eventosId"]); $i++) {  ?>
+
             
-
+            
             <div class="card-eventos col-xxl-4 col-lg-4 mb-3">
+              
+              <?php 
 
+                echo 'ID do evento= ' . $idEvento = $evento["data"][$i]["id"]  . '<br>'; 
+                echo 'ID do campus= ' . $idCampus = $evento["data"][$i]["eventosCampus"][$i]["id"];
+                 
+                 
+                
+            
+              ?>
+
+              
               <img style="height: 100px"  class="card-img-top img-fluid" src="<?php echo $evento["data"][$i]["eventosIdiomas"][0]["bannerTopoArquivo"] ?>" alt="Card image cap">      
               
 
