@@ -1,17 +1,17 @@
-$("#form").submit(function (e) {
-  e.preventDefault;
-  //agora buscar somente os checkeds, utilizando :checked no seletor
-  let inputCampus = $('#form input[type="checkbox"]');
+function getCampus() {
+  // Seleciona todos os checkbox que possuem o atributo class = inputCampus
+  var checkBoxes = document.getElementsByClassName("inputCampus");
 
-  console.log(inputCampus);
+  // Seleciona a ID "cards" que corresponde aos eventos do layout
+  var cards = document.getElementById("cards");
 
-  $.ajax({
-    url: "/sistema-eventos",
-    type: "POST",
-    data: {
-      checkeboxes: result.join(","),
-    },
-  }).done((data) => {
-    document.body = data;
+  // Percorre os objetos selecionados
+  Array.prototype.forEach.call(checkBoxes, (checkbox) => {
+    // confere se o obj específico está marcado
+    if (checkbox.checked) {
+      cards.innerHTML = "eu testei";
+
+      // alert("teste");
+    }
   });
-});
+}

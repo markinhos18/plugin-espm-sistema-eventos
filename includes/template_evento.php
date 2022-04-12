@@ -3,26 +3,13 @@
 /** Template Eventos **/
 
 
-if( isset($_POST["checkeboxes"]) ){
-  // echo "============[";
-  // var_dump($_POST["checkeboxes"]);
-  // echo "]============";
-
-
-  $checkeboxes = $_POST["checkeboxes"];
-
-  // $eventoCampus = EventosCampus_API::Evento_Campus($checkeboxes);
-
-  $evento = Eventos_API::Evento($checkeboxes);
-
-
-}
 
 
 ?>
 
 
-<form action="" method="post" id="form" >
+
+<form action="" method="post"  id="form">
   <div class="row ">
 
     <div class="col-xxl-3 col-lg-3 col-md-6 p-0 gap-3 mb-3">
@@ -35,7 +22,7 @@ if( isset($_POST["checkeboxes"]) ){
             <?php  for ($i=0; $i < count($eventoCampus) ; $i++) {  ?>
 
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="<?php  echo $eventoCampus[$i]["descr"]; ?>"  id="inputCampus" >
+                <input class="form-check-input inputCampus" type="checkbox" value="<?php  echo $eventoCampus[$i]["descr"]; ?>"  onClick="getCampus();" >
                 <label class="form-check-label" type="checkbox" for="inputCampus">
                   <?php echo $eventoCampus[$i]["descr"]; ?>
                 </label>
@@ -57,7 +44,9 @@ if( isset($_POST["checkeboxes"]) ){
 
                 <?php  for ($i=0; $i < count($eventoPublicos["data"]) ; $i++) {  ?>
 
-                  <option value="<?php echo $eventoPublicos["data"][$i]["id"] ?>"><?php echo $eventoPublicos["data"][$i]["descricao"] ?></option>
+                  <?php $categoria =  explode(":", $eventoPublicos["data"][$i]["descricao"]) ?>
+
+                  <option value="<?php echo $eventoPublicos["data"][$i]["id"] ?>"><?php echo $categoria[1] ?></option>
                   
                 <?php }?>
 
@@ -119,11 +108,13 @@ if( isset($_POST["checkeboxes"]) ){
             </div>
           </div>
           <div class="row d-flex justify-content-center mt-3">
-            <button type="button" class="jet-date-range__submit apply-filters__button btn-green">
+            <button type="button" id="btn_save" class="jet-date-range__submit apply-filters__button btn-green">
               <i class="fa fa-calendar-o me-2"></i> <span class=" jet-date-range__submit-text">Encontrar</span>
             </button>
           </div>
         </div>
+
+       
 
 
       
@@ -131,6 +122,7 @@ if( isset($_POST["checkeboxes"]) ){
       </div>
     </div>
 
+   
 
     <div class=" col-xxl-9 col-lg-9 col-md-6">
 
@@ -214,50 +206,49 @@ if( isset($_POST["checkeboxes"]) ){
         <div class="row">
 
 
+        
+
           <?php  for ($i=0; $i < count($evento["data"], $eventoAtividades["eventosId"]); $i++) {  ?>
 
-            
-            
-            <div class="card-eventos col-xxl-4 col-lg-4 mb-3">
+
+            <div class=" card-eventos col-xxl-4 col-lg-4 mb-3">
+
+              <div id="cards"></div>
               
               <?php 
 
-                echo 'ID do evento= ' . $idEvento = $evento["data"][$i]["id"]  . '<br>'; 
-                echo 'ID do campus= ' . $idCampus = $evento["data"][$i]["eventosCampus"][$i]["id"];
+                // echo 'ID do evento= ' . $idEvento = $evento["data"][$i]["id"]  . '<br>'; 
+                // echo 'ID do campus= ' . $idCampus = $evento["data"][$i]["eventosCampus"][$i]["id"];
                  
-                 
-                
-            
               ?>
 
               
               <img style="height: 100px"  class="card-img-top img-fluid" src="<?php echo $evento["data"][$i]["eventosIdiomas"][0]["bannerTopoArquivo"] ?>" alt="Card image cap">      
               
-
               <div class="card-body">
 
-              <div class="row">
+                <div class="row">
 
-                <div class="col-10 mb-3">
-                  
-                  <!--i aria-hidden="true" class="far fa-calendar-alt"></i--> <span class="red"><?php echo $evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"] ?></span>
+                  <?php if($evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"]) { ?>
+                    <div class="col-10 mb-3">
+                      
+                        <!--i aria-hidden="true" class="far fa-calendar-alt"></i--> <span class="red"><?php echo $evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"] ?></span>
+
+                    </div>
+                  <?php } ?>
 
                   
-                  
+                  <div class="col-2 mb-3">
+                    <a href="javascript:void(0)" onclick="share()" class="float-right">
+                      <i aria-hidden="true" class="fas fa-share-alt"></i>
+                    </a>
+                  </div>
+
                 </div>
-
-                
-                <div class="col-2 mb-3">
-                  <a href="javascript:void(0)" onclick="share()" class="float-right">
-                    <i aria-hidden="true" class="fas fa-share-alt"></i>
-                  </a>
-                </div>
-
-              </div>
                 
                 
                   
-              <h2><?php echo $evento["data"][$i]["titulo"]  ?></h2>
+                <h2><?php echo $evento["data"][$i]["titulo"]  ?></h2>
 
 
               
@@ -265,7 +256,14 @@ if( isset($_POST["checkeboxes"]) ){
                 
                   <div class="my-2">
     
-                      <span class="text-publico"><strong>Público:</strong> <?php echo $eventoPublicos["data"][$i]["descricao"] ?></span>
+                      <span class="text-publico">
+                        <strong>Público:</strong>
+
+                        <?php $categoria =  explode(":", $eventoPublicos["data"][$i]["descricao"]) ?>
+
+                        <option value="<?php echo $eventoPublicos["data"][$i]["id"] ?>"><?php echo $categoria[1] ?></option>
+                    
+                      </span>
                     
                   </div>
 
@@ -275,21 +273,25 @@ if( isset($_POST["checkeboxes"]) ){
                   
                 <!-- <p class="text-p mb-3"><?php echo $evento["data"][$i]["eventosIdiomas"][0]["paginaEventoDescricao"] ?></p> -->
                 
-                <div class="mb-3">
+                <div class=" text-publico">
                   <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $evento["data"][$i]["inscricaoHoraInicial"] ?> até <?php echo $evento["data"][$i]["inscricaoHoraFinal"] ?>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3 text-publico">
 
                   <?php if($eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"]) { ?>
 
-                    <span class="btn-red me-3">
+                    <div>
 
-                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"] ?>
-                      
-                    </span>
+                      <span class="btn-red ">
+
+                        <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"] ?>
+                        
+                      </span>
+
+                    </div>
                 
-                  <?php } ?> <br>
+                  <?php } ?> 
 
             
 
@@ -297,20 +299,18 @@ if( isset($_POST["checkeboxes"]) ){
 
                     <span class="btn-grey">
 
-                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo "Gratuito"  ?>
+                    <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo "Gratuito"  ?> 
                       
 
                   <?php } else { ?>
 
-                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $eventoAtividades["data"][$i]["investimento"] ?>
+                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i>R$ <?php echo $eventoAtividades["data"][$i]["investimento"] ?>
 
                     </span>
 
                   <?php } ?>
                 
-          
-
-                  
+    
                   
                 </div>
 
@@ -320,9 +320,13 @@ if( isset($_POST["checkeboxes"]) ){
                 <button class="btn-eventos" href='<?php echo $evento["data"][$i]["url"] ?>'> Saiba mais</button>
                 
               </div>
+
             </div>
 
           <?php  } ?>
+
+
+
 
         </div>
 
