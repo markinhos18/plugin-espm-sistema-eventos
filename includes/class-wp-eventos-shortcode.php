@@ -16,6 +16,7 @@ class Gerar_Shortcode_Eventos{
 
     private function __construct() {
         add_shortcode('eventos',  __CLASS__ .'::Mostra_Eventos');
+
     }
 
 
@@ -54,6 +55,10 @@ class Gerar_Shortcode_Eventos{
         
 
     }
+
+    // $mostrar_evento = Mostra_Eventos();
+
+    
 
 }
 

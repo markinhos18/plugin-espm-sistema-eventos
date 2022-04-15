@@ -69,12 +69,38 @@ function eventos_add_js_admin(){
 function enqueue_related_pages_scripts_and_styles(){
     wp_enqueue_style('related-styles', plugins_url('public/css/style.css', __FILE__));
 
-    // wp_enqueue_script('releated-script', plugins_url( 'public/js/scripts.js' , __FILE__ ), array('jquery'));
-
     wp_enqueue_script('releated-script', plugins_url( 'public/js/eventos.js' , __FILE__ ), array('jquery'),'',true  ); 
-    
+
+    // PASSA INFORMAÇÃO DO PHP PARA JAVASCRIPT
+    // wp_localize_script(
+    //     'eventos',
+    //     'eventos_ajax',
+    //     array('ajax_url'=>admin_url('admin-ajax.php'),
+    // ));
+
 }
+
 add_action('wp_enqueue_scripts','enqueue_related_pages_scripts_and_styles');
+
+
+//ATIVA A FUNÇÃO AJAX DO FRONT-END
+add_action('wp_ajax_set_form', 'set_form');
+
+//ATIVA A FUNÇÃO AJAX DO BACK-END(ADMIN)
+add_action('wp_ajax_nopriv_set_form', 'set_form');
+
+
+function set_form(){
+
+    include_once(plugins_url().'includes/ajax.php');
+
+}
+
+
+
+
+
+
 
 
 

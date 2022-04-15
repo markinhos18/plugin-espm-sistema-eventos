@@ -47,9 +47,11 @@ class Eventos_API {
 
         $token = Eventos_API::Token();
         
+               
         // Pegando todos os eventos do publico externo
-        $url = "https://apieventos.espm.br/api/Evento?publicosIds=8uqEcFRvTpc";
+            $url = "https://apieventos.espm.br/api/Evento?publicosIds=8uqEcFRvTpc";
         // https://apieventos.espm.br/api/Evento?publicosIds=8uqEcFRvTpc&vitrinesIds=qIsqL70LLhE
+       
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);

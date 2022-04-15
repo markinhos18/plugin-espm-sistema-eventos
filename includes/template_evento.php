@@ -4,9 +4,46 @@
 
 
 
+// $action=isset($_POST["teste"]) ?$_POST["teste"]: '';
+
+
+// if($action == "1"){
+//     echo 'valor 1';
+// }else{
+//     echo 'sem valor';
+// }
+
+
+// // get the q parameter from URL
+// $teste = $_REQUEST["q"];
+
+// $hint = "";
+
+// // lookup all hints from array if $teste is different from ""
+// if ($teste !== "") {
+//   $teste = strtolower($teste);
+//   $len=strlen($teste);
+// //   foreach($a as $name) {
+// //     if (stristr($teste, substr($name, 0, $len))) {
+// //       if ($hint === "") {
+// //         $hint = $name;
+// //       } else {
+// //         $hint .= ", $name";
+// //       }
+// //     }
+// //   }
+// }
+
+// // Output "no suggestion" if no hint was found or output correct values
+// echo $hint === "" ? "no suggestion" : $hint;
+
+// echo 'eu testei';
+
+
+
+
 
 ?>
-
 
 
 <form action="" method="post"  id="form">
@@ -22,7 +59,7 @@
             <?php  for ($i=0; $i < count($eventoCampus) ; $i++) {  ?>
 
               <div class="form-check">
-                <input class="form-check-input inputCampus" type="checkbox" value="<?php  echo $eventoCampus[$i]["descr"]; ?>"  onClick="getCampus();" >
+                <input class="form-check-input inputCampus" type="checkbox" value="<?php  echo $eventoCampus[$i]["campus"]; ?>">
                 <label class="form-check-label" type="checkbox" for="inputCampus">
                   <?php echo $eventoCampus[$i]["descr"]; ?>
                 </label>
@@ -46,7 +83,7 @@
 
                   <?php $categoria =  explode(":", $eventoPublicos["data"][$i]["descricao"]) ?>
 
-                  <option value="<?php echo $eventoPublicos["data"][$i]["id"] ?>"><?php echo $categoria[1] ?></option>
+                  <option class="publico" value="<?php echo $eventoPublicos["data"][$i]["id"] ?>"><?php echo $categoria[1] ?></option>
                   
                 <?php }?>
 
@@ -62,10 +99,10 @@
             <span><b>Modelo</b></span>
               <select class="form-select" aria-label="Default select example">
 
-                <option selected>...</option>
-                <option value="On-line">Online</option>
-                <option value="Presencial">Presencial</option>
-                <option value="Hibrido">Hibrido</option>
+                <option class="modelo" selected>...</option>
+                <option class="modelo" value="On-line">Online</option>
+                <option class="modelo" value="Presencial">Presencial</option>
+                <option class="modelo" value="Hibrido">Hibrido</option>
 
                
 
@@ -79,9 +116,9 @@
             <span><b>Investimento</b></span>
             <select class="form-select" aria-label="Default select example">
 
-              <option selected>...</option>
-              <option value="Gratuito">Gratuito</option>
-              <option value="Pago">Pago</option>
+              <option class="investimento" selected>...</option>
+              <option class="investimento" value="Gratuito">Gratuito</option>
+              <option class="investimento" value="Pago">Pago</option>
               
               
 
@@ -99,18 +136,19 @@
             
             <div class="col-6">
               <label class="title-white">De:</label>
-              <input type="date" >
+              <input class="dataEvento" type="date" >
             </div>
             
             <div class="col-6">
               <label class="title-white">Até:</label>
-              <input type="date" >
+              <input class="dataEvento" type="date" >
             </div>
           </div>
           <div class="row d-flex justify-content-center mt-3">
-            <button type="button" id="btn_save" class="jet-date-range__submit apply-filters__button btn-green">
+            <button type="submit" value="Submit" id="btn_save" class="jet-date-range__submit apply-filters__button btn-green">
               <i class="fa fa-calendar-o me-2"></i> <span class=" jet-date-range__submit-text">Encontrar</span>
             </button>
+
           </div>
         </div>
 
@@ -203,129 +241,131 @@
             
       <div class="col-12">
 
-        <div class="row">
-
-
         
-
-          <?php  for ($i=0; $i < count($evento["data"], $eventoAtividades["eventosId"]); $i++) {  ?>
-
-
-            <div class=" card-eventos col-xxl-4 col-lg-4 mb-3">
-
-              <div id="cards"></div>
-              
-              <?php 
-
-                // echo 'ID do evento= ' . $idEvento = $evento["data"][$i]["id"]  . '<br>'; 
-                // echo 'ID do campus= ' . $idCampus = $evento["data"][$i]["eventosCampus"][$i]["id"];
-                 
-              ?>
-
-              
-              <img style="height: 100px"  class="card-img-top img-fluid" src="<?php echo $evento["data"][$i]["eventosIdiomas"][0]["bannerTopoArquivo"] ?>" alt="Card image cap">      
-              
-              <div class="card-body">
-
-                <div class="row">
-
-                  <?php if($evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"]) { ?>
-                    <div class="col-10 mb-3">
-                      
-                        <!--i aria-hidden="true" class="far fa-calendar-alt"></i--> <span class="red"><?php echo $evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"] ?></span>
-
-                    </div>
-                  <?php } ?>
-
-                  
-                  <div class="col-2 mb-3">
-                    <a href="javascript:void(0)" onclick="share()" class="float-right">
-                      <i aria-hidden="true" class="fas fa-share-alt"></i>
-                    </a>
-                  </div>
-
-                </div>
-                
-                
-                  
-                <h2><?php echo $evento["data"][$i]["titulo"]  ?></h2>
+        <div id="cards">
 
 
-              
-                <?php if($eventoPublicos["data"][$i]["descricao"]) { ?>
-                
-                  <div class="my-2">
-    
-                      <span class="text-publico">
-                        <strong>Público:</strong>
+          <div class="row">
 
-                        <?php $categoria =  explode(":", $eventoPublicos["data"][$i]["descricao"]) ?>
-
-                        <option value="<?php echo $eventoPublicos["data"][$i]["id"] ?>"><?php echo $categoria[1] ?></option>
-                    
-                      </span>
-                    
-                  </div>
-
-                <?php } ?>
-                
-               
-                  
-                <!-- <p class="text-p mb-3"><?php echo $evento["data"][$i]["eventosIdiomas"][0]["paginaEventoDescricao"] ?></p> -->
-                
-                <div class=" text-publico">
-                  <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $evento["data"][$i]["inscricaoHoraInicial"] ?> até <?php echo $evento["data"][$i]["inscricaoHoraFinal"] ?>
-                </div>
-
-                <div class="mb-3 text-publico">
-
-                  <?php if($eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"]) { ?>
-
-                    <div>
-
-                      <span class="btn-red ">
-
-                        <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"] ?>
-                        
-                      </span>
-
-                    </div>
-                
-                  <?php } ?> 
-
+          
             
+            <?php  for ($i=0; $i < count($evento["data"], $eventoAtividades["eventosId"]); $i++) {  ?>
+              
 
-                  <?php if($eventoAtividades["data"][$i]["investimento"] === null) { ?>
+              <div class=" card-eventos col-xxl-4 col-lg-4 mb-3">
 
-                    <span class="btn-grey">
+                
+                <?php 
 
-                    <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo "Gratuito"  ?> 
+                  // echo 'ID do evento= ' . $idEvento = $evento["data"][$i]["id"]  . '<br>'; 
+                  // echo 'ID do campus= ' . $idCampus = $evento["data"][$i]["eventosCampus"][$i]["id"];
+                  
+                ?>
+
+                
+                <img style="height: 100px"  class="card-img-top img-fluid" src="<?php echo $evento["data"][$i]["eventosIdiomas"][0]["bannerTopoArquivo"] ?>" alt="Card image cap">      
+                
+                <div class="card-body">
+
+                  <div class="row">
+
+                    <?php if($evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"]) { ?>
+                      <div class="col-10 mb-3">
+                        
+                          <!--i aria-hidden="true" class="far fa-calendar-alt"></i--> <span class="red"><?php echo $evento["data"][$i]["eventosIdiomas"][$i]["paginaEventoData"] ?></span>
+
+                      </div>
+                    <?php } ?>
+
+                    
+                    <div class="col-2 mb-3">
+                      <a href="javascript:void(0)" onclick="share()" class="float-right">
+                        <i aria-hidden="true" class="fas fa-share-alt"></i>
+                      </a>
+                    </div>
+
+                  </div>
+                  
+                  
+                    
+                  <h2><?php echo $evento["data"][$i]["titulo"]  ?></h2>
+
+
+                
+                  <?php if($eventoPublicos["data"][$i]["descricao"]) { ?>
+                  
+                    <div class="my-2">
+      
+                        <span class="text-publico">
+                          <strong>Público:</strong>
+
+                          <?php $categoria =  explode(":", $eventoPublicos["data"][$i]["descricao"]) ?>
+
+                          <option value="<?php echo $eventoPublicos["data"][$i]["id"] ?>"><?php echo $categoria[1] ?></option>
                       
-
-                  <?php } else { ?>
-
-                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i>R$ <?php echo $eventoAtividades["data"][$i]["investimento"] ?>
-
-                    </span>
+                        </span>
+                      
+                    </div>
 
                   <?php } ?>
+                  
                 
-    
+                    
+                  <!-- <p class="text-p mb-3"><?php echo $evento["data"][$i]["eventosIdiomas"][0]["paginaEventoDescricao"] ?></p> -->
+                  
+                  <div class=" text-publico">
+                    <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $evento["data"][$i]["inscricaoHoraInicial"] ?> até <?php echo $evento["data"][$i]["inscricaoHoraFinal"] ?>
+                  </div>
+
+                  <div class="mb-3 text-publico">
+
+                    <?php if($eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"]) { ?>
+
+                      <div>
+
+                        <span class="btn-red ">
+
+                          <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo $eventoAtividades["data"][$i]["eventosAtividadesEncontros"][$i]["modelo"] ?>
+                          
+                        </span>
+
+                      </div>
+                  
+                    <?php } ?> 
+
+              
+
+                    <?php if($eventoAtividades["data"][$i]["investimento"] === null) { ?>
+
+                      <span class="btn-grey">
+
+                      <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?php echo "Gratuito"  ?> 
+                        
+
+                    <?php } else { ?>
+
+                        <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i>R$ <?php echo $eventoAtividades["data"][$i]["investimento"] ?>
+
+                      </span>
+
+                    <?php } ?>
+                  
+      
+                    
+                  </div>
+
+
+                                              
+                  <button class="btn-eventos me-3" href='<?php echo $evento["data"][$i]["url"] ?>'> Inscrições </button>
+                  <button class="btn-eventos" href='<?php echo $evento["data"][$i]["url"] ?>'> Saiba mais</button>
                   
                 </div>
 
-
-                                            
-                <button class="btn-eventos me-3" href='<?php echo $evento["data"][$i]["url"] ?>'> Inscrições </button>
-                <button class="btn-eventos" href='<?php echo $evento["data"][$i]["url"] ?>'> Saiba mais</button>
-                
               </div>
 
-            </div>
+            <?php  } ?>
 
-          <?php  } ?>
-
-
+          </div>
 
 
         </div>
@@ -337,3 +377,27 @@
 
   </div>
 </form>
+
+
+
+<!-- 
+<script>
+    function mostrar_eventos() {
+  //     $.ajax({
+  //       url: "template_evento.php",
+  //       type: "POST",
+  //       data: { teste: "1" },
+  //       cache: false,
+  //       complete: function (response) {
+  //         alert(response.responseText);
+  //       },
+  //       error: function (response) {
+  //         alert(response.responseText);
+  //       },
+  //     });
+
+  // return false;
+
+  alert("teste");
+}
+</script> -->

@@ -1,17 +1,69 @@
-function getCampus() {
-  // Seleciona todos os checkbox que possuem o atributo class = inputCampus
-  var checkBoxes = document.getElementsByClassName("inputCampus");
+const $ = jQuery;
 
-  // Seleciona a ID "cards" que corresponde aos eventos do layout
-  var cards = document.getElementById("cards");
+$("#btn_save").on("click", function (e) {
+  e.preventDefault();
 
-  // Percorre os objetos selecionados
-  Array.prototype.forEach.call(checkBoxes, (checkbox) => {
-    // confere se o obj específico está marcado
-    if (checkbox.checked) {
-      cards.innerHTML = "eu testei";
+  //**************   Campus ******************************* */
 
-      // alert("teste");
-    }
-  });
-}
+  let checkbox = $(".inputCampus");
+
+  if (checkbox.is(":checked")) {
+    // jQuery.ajax({
+    //   url: eventos_ajax.ajax_url,
+    //   type: "POST",
+    //   dataType: "JSON",
+    //   data: {
+    //     action: "set_form",
+    //     checkbox: checkbox,
+    //   },
+    //   success: function (data) {
+    //     if (data.status == 1) {
+    //       alert(data.msg);
+    //     } else {
+    //       alert(data.msg);
+    //     }
+    //   },
+    //   error: function (response) {
+    //     alert("Aconteceu um erro");
+    //   },
+    // });
+    alert("Checado");
+  }
+  //   alert(eventos_ajax.ajax_url);
+
+  //**************  Publico  ******************************* */
+
+  //   let publico = $(".publico");
+
+  //   if (publico.is(":selected")) {
+  //     alert("testei publico");
+  //   }
+
+  //*************** Modelo ****************************** */
+
+  //   let modelo = $(".modelo");
+
+  //   if (modelo.is(":selected")) {
+  //     alert("testei modelo");
+  //   }
+
+  //*************** Investimento ****************************** */
+
+  //   let investimento = $(".investimento");
+
+  //   if (investimento.is(":selected")) {
+  //     alert("testei investimento");
+  //   }
+
+  //*****************Data do Evento **************************** */
+
+  //   let dataEvento = $(".dataEvento");
+
+  //   if (dataEvento.is(":checked")) {
+  //     alert("testei data de evento");
+  //   } else {
+  //     alert("Selecione uma das opções do formulario");
+  //   }
+
+  //********************************************* */
+});
