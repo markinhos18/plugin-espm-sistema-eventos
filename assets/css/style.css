@@ -22,8 +22,18 @@ h2{
   border-radius: 0.25rem;
 }
 
+.img-cards{
+  height: 100px;
+  overflow: hidden;
+}
+
 .btn-eventos {
   padding: 0.5rem;
+}
+
+.btn-eventos-evento {
+  padding: 0.5rem;
+  width: 100%;
 }
 
 .bg-sidebar {
@@ -107,4 +117,21 @@ h3.title-white {
 
 .red{
   color:#c36;
+}
+
+
+.fa-share-alt{
+  font-size: 1rem;
+}
+
+.text-card{
+  position: absolute;
+  bottom: 0;
+  background: black;
+  color: white;
+  /* height: 100px; */
+  width: 91%;
+  padding: 2%;
+  font-size: 0.9rem;
+  
 }

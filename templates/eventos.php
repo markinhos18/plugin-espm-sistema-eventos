@@ -137,7 +137,9 @@
                                 <div class=" card-eventos col-xxl-4 col-lg-4 mb-3">
 
                                     <!-- <card-evento-imagem> -->
-                                    <img style="height: 100px" class="card-img-top img-fluid" src="<?= $evento->eventosIdiomas[0]->bannerTopoArquivo ?>" alt="<?= $evento->titulo ?>" />
+                                    <div class="img-cards">
+                                        <img class="card-img-top img-fluid" src="<?= $evento->eventosIdiomas[0]->bannerTopoArquivo ?>" alt="<?= $evento->titulo ?>" />
+                                    </div>
                                     <!-- </card-evento-imagem> -->
 
                                     <!-- <card-evento-conteudo> -->
@@ -152,11 +154,11 @@
                                             <!-- </link-pagina-evento> -->
 
                                             <!-- <botao-compartilhar> -->
-                                            <div class="col-2 mb-3">
+                                            <!-- <div class="col-2 mb-3">
                                                 <a href="javascript:void(0)" onclick="share()" class="float-right">
                                                     <i aria-hidden="true" class="fas fa-share-alt"></i>
                                                 </a>
-                                            </div>
+                                            </div> -->
                                             <!-- </botao-compartilhar> -->
                                         </div>
 
@@ -188,13 +190,16 @@
 
                                         <!-- <atividades-evento> -->
                                         <div class="mb-3 text-publico">
-                                            <?php if (isset($atividades)) : ?>
-                                                <div>
-                                                    <span class="btn-red ">
-                                                        <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><?= $atividades->data[0]->eventosAtividadesEncontros[0]->modelo ?>
-                                                    </span>
-                                                </div>
-                                            <?php endif; ?>
+                                            <div>
+
+                                                <?php if (isset($evento)) : ?>
+
+                                                    <i aria-hidden="true" class="fas fa-chevron-right red me-2"></i><span class="btn-red "><?= $evento->eventosAtividades[0]->eventosAtividadesEncontros[0]->modelo  ?></span>
+
+                                                <?php endif; ?>
+
+
+                                            </div>
 
                                             <div>
                                                 <?php if (isset($atividades) && $atividades->data[0]->investimento != null) : ?>
